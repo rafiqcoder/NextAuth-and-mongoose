@@ -1,14 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import axios from "axios";
+import React,{ useState } from "react";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
+    // fetch data from api using .then .catch
+    fetch("/api/register",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name,email,password }),
+    })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+
+    
+
+    console.log("test",name,email,password);
+    
   };
 
   return (
@@ -22,7 +37,7 @@ const Register = () => {
             <h1 className="mb-4">Register</h1>
 
             <div className="form-outline mb-4">
-              <label className="form-label" for="name_field">
+              <label className="form-label" htmlFor="name_field">
                 Name
               </label>
               <input
@@ -35,7 +50,7 @@ const Register = () => {
             </div>
 
             <div className="form-outline mb-4">
-              <label className="form-label" for="email_field">
+              <label className="form-label" htmlFor="email_field">
                 Email address
               </label>
               <input
@@ -48,7 +63,7 @@ const Register = () => {
             </div>
 
             <div className="form-outline mb-4">
-              <label className="form-label" for="password_field">
+              <label className="form-label" htmlFor="password_field">
                 Password
               </label>
               <input
